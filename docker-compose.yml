@@ -8,3 +8,11 @@ services:
       - 8000:8000
     volumes:
     - .:/app
+  postgres:
+    image: postgres:latest
+    volumes:
+      - /var/lib/postgres
+    environment:
+      POSTGRES_DB: uzpos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
