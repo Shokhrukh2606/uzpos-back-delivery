@@ -13,7 +13,9 @@
             ├── api_gateway.conf 
             ├── api_json_errors.conf
             ├── conf.d/
+            ├── api_keys.conf/
             └── nginx.conf
+
 
 ## delivery_api.conf
     
@@ -22,9 +24,12 @@
         #
         # access_log /var/log/nginx/delivery_api.log main;
 
+        location /api/delivery/static {
+            autoindex on;    
+            alias "/Users/user/Documents/shoh projects/uzposback/uzpos/static";
+        }
         location /api/delivery {
                 proxy_pass http://delivery;
-                #proxy_pass http://localhost:8001;
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header X-Forwarded-Proto $scheme;        
@@ -99,4 +104,12 @@
 
         include servers/*;
     }
-    
+
+## api_keys.conf
+    map $http_apikey $api_client_name {
+        default "";
+
+        "7B5zIqmRGXmrJTFmKa99vcit" "client_one";
+        "QzVV6y1EmQFbbxOfRCwyJs35" "client_two";
+        "mGcjH8Fv6U9y3BVF9H3Ypb9T" "client_six";
+    }

@@ -54,11 +54,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'uzpos.urls'
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [STATIC_ROOT],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,7 +130,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+USE_X_FORWARDED_HOST = True
+FORCE_SCRIPT_NAME = '/api/delivery'
+
+STATIC_SUFFIX = '/static/'
+STATIC_URL = FORCE_SCRIPT_NAME + STATIC_SUFFIX
 
 CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS=['*']
