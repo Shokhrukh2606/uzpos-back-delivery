@@ -23,6 +23,7 @@
         # access_log /var/log/nginx/delivery_api.log main;
 
         location /api/delivery {
+                #proxy_pass http://delivery;
                 proxy_pass http://localhost:8001;
                 proxy_set_header Host $host;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
