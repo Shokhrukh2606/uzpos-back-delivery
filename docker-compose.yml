@@ -5,14 +5,19 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8000:8000
+      - "8000:8000"
     volumes:
     - .:/app
-  postgres:
-    image: postgres:latest
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
     volumes:
       - /var/lib/postgres
     environment:
       POSTGRES_DB: uzpos
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"

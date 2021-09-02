@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'users'
+    'delivery'
 ]
 
 MIDDLEWARE = [
@@ -79,16 +79,16 @@ WSGI_APPLICATION = 'uzpos.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
          'NAME': 'uzpos',
 
         'USER': 'postgres',
 
         'PASSWORD': '1234',
 
-        'HOST': '0.0.0.0',
+        'HOST': 'db',
 
-        'PORT': '5432',
+        'PORT': 5432,
     }
 }
 
