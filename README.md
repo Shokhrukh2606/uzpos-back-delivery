@@ -16,7 +16,7 @@
             └── nginx.conf
 
 ## delivery_api.conf
-    ```
+    
     location /api {
         # Policy configuration here (authentication, rate limiting, logging, more...)
         #
@@ -31,16 +31,16 @@
 
         return 404; # Catch-all
     }
-    ```
+    
 ## api_backends.conf
-    ```
+    
     upstream delivery {
         zone delivery_service 128k;
         server 127.0.0.1:8001;    
     }
-    ```
+    
 ## api_gateway.conf 
-    ```
+    
     include api_backends.conf;
     include api_keys.conf;
 
@@ -69,9 +69,9 @@
         # include api_json_errors.conf;  # API client friendly JSON error responses
         default_type application/json; # If no content-type then assume JSON
     }
-    ```
+    
 ## nginx.conf
-    ```
+    
     http {
         include /opt/homebrew/etc/nginx/api_gateway.conf;
         include       mime.types;
@@ -98,4 +98,4 @@
 
         include servers/*;
     }
-    ```
+    
