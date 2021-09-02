@@ -59,7 +59,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [STATIC_ROOT],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,10 +131,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 USE_X_FORWARDED_HOST = True
-FORCE_SCRIPT_NAME = '/api/delivery'
 
-STATIC_SUFFIX = '/static/'
-STATIC_URL = FORCE_SCRIPT_NAME + STATIC_SUFFIX
+STATIC_URL = '/api/delivery/static/'
 
 CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS=['*']
