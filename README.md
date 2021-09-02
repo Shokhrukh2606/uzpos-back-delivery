@@ -1,7 +1,7 @@
 # uzpos-back
 [Server_configuration_for_nginx](#Server-configuration-for-nginx)
 
-    - Server configuration for nginx
+    # Server configuration for nginx
         .
         ├── etc                   
             |── nginx/
