@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins, generics
 from rest_framework import permissions
 
-from delivery.serializers import UserSerializer, GroupSerializer
+from delivery.models import Order
+from delivery.serializers import UserSerializer, GroupSerializer, OrderSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,3 +22,24 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class OrderAPIView(mixins.ListModelMixin,
+                      mixins.CreateModelMixin,
+                      mixins.DestroyModelMixin,
+                      mixins.UpdateModelMixin,
+                      generics.GenericAPIView):
+
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
