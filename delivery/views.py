@@ -7,7 +7,7 @@ from delivery.serializers import CustomUserSerializer, GroupSerializer, OrderSer
 from users.models import CustomUser
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet,mixins.CreateModelMixin):
     """
     API endpoint that allows groups to be viewed or edited.
     """
@@ -30,6 +30,11 @@ class UserViewSet(viewsets.ModelViewSet):
         if last_name is not None:
             queryset = queryset.filter(last_name=last_name)
         return queryset
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.

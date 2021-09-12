@@ -4,10 +4,15 @@ from rest_framework import serializers
 from delivery.models import Order, OrderItem, CustomUser
 
 
-class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        user = super().create(validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
     class Meta:
         model = CustomUser
-        fields = ['phone', 'pk', 'groups', 'first_name', 'last_name', 'date_joined', 'last_login']
+        fields = ['phone', 'pk', 'groups', 'first_name', 'last_name', 'date_joined', 'last_login','password', 'is_active']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
