@@ -1,11 +1,11 @@
 from django.db import models
 
 # Create your models here.
-class User(models.Model):
-    pass
+from users.models import CustomUser
+
 
 class Order(models.Model):
-    deliver=models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders", blank=True, null=True)
+    deliver=models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="orders", blank=True, null=True)
     full_name=models.CharField(max_length=512, verbose_name='Client name')
     phone=models.CharField(max_length=9, verbose_name='Client phone number')
     from_address = models.CharField(max_length=512, verbose_name='From address')

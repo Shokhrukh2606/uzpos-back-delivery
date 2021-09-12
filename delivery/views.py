@@ -3,25 +3,40 @@ from rest_framework import viewsets, mixins, generics
 from rest_framework import permissions
 
 from delivery.models import Order
-from delivery.serializers import UserSerializer, GroupSerializer, OrderSerializer
+from delivery.serializers import CustomUserSerializer, GroupSerializer, OrderSerializer
+from users.models import CustomUser
 
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    API endpoint that allows groups to be viewed or edited.
     """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = CustomUser.objects.all()
+        phone = self.request.query_params.get('phone')
+        first_name = self.request.query_params.get('first_name')
+        last_name = self.request.query_params.get('last_name')
+        if phone is not None:
+            queryset = queryset.filter(phone=phone)
+        if first_name is not None:
+            queryset = queryset.filter(first_name=first_name)
+        if last_name is not None:
+            queryset = queryset.filter(last_name=last_name)
+        return queryset
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 class OrderAPIView(mixins.ListModelMixin,
                       mixins.CreateModelMixin,

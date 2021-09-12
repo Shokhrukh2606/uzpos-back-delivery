@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'delivery'
+    'users',
+    'delivery',
 ]
+AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'uzpos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'uzpos',
+         'NAME': 'uzpos_first',
 
         'USER': 'postgres',
 
@@ -137,7 +138,7 @@ STATIC_URL = '/api/delivery/static/'
 CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS=['*']
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 20,
+    'DEFAULT_PAGINATION_CLASS': 'delivery.pagination.CustomPagination',
+    'PAGE_SIZE': 10,
 }
  # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']

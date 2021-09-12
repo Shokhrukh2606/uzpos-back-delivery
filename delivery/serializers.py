@@ -1,13 +1,13 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from rest_framework import serializers
 
-from delivery.models import Order, OrderItem
+from delivery.models import Order, OrderItem, CustomUser
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
-        fields = ['username', 'email', 'groups']
+        model = CustomUser
+        fields = ['phone', 'pk', 'groups', 'first_name', 'last_name', 'date_joined', 'last_login']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
