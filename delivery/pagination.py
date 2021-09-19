@@ -1,6 +1,7 @@
 from rest_framework import pagination
 from rest_framework.response import Response
 
+
 class CustomPagination(pagination.PageNumberPagination):
     page_query_param = 'current'
     page_size_query_param = 'pageSize'
@@ -12,6 +13,5 @@ class CustomPagination(pagination.PageNumberPagination):
             'data': data,
             'pageSize': self.page.paginator.per_page,
             'success': True,
-            'total':self.page.paginator.count
+            'total': self.page.paginator.count
         })
-

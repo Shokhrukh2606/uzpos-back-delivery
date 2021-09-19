@@ -82,15 +82,15 @@ WSGI_APPLICATION = 'uzpos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'uzpos_first',
+         'NAME': 'uzposnew',
 
         'USER': 'postgres',
 
         'PASSWORD': '1234',
 
-        'HOST': 'db',
+        'HOST': 'localhost',
 
-        'PORT': 5432,
+        'PORT': 5431,
     }
 }
 

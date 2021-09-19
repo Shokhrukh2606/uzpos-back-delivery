@@ -7,19 +7,20 @@ from delivery.serializers import CustomUserSerializer, GroupSerializer, OrderSer
 from users.models import CustomUser
 
 
-class UserViewSet(viewsets.ModelViewSet,mixins.CreateModelMixin):
+class UserViewSet(viewsets.ModelViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = CustomUser.objects.all()
+    queryset = CustomUser.objects.get_queryset().order_by('id')
     serializer_class = CustomUserSerializer
+
     # permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self):
         """
         Optionally restricts the returned purchases to a given user,
         by filtering against a `username` query parameter in the URL.
         """
-        queryset = CustomUser.objects.all()
+        queryset = CustomUser.objects.get_queryset().order_by('id')
         phone = self.request.query_params.get('phone')
         first_name = self.request.query_params.get('first_name')
         last_name = self.request.query_params.get('last_name')
@@ -30,6 +31,9 @@ class UserViewSet(viewsets.ModelViewSet,mixins.CreateModelMixin):
         if last_name is not None:
             queryset = queryset.filter(last_name=last_name)
         return queryset
+
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
@@ -43,12 +47,12 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     # permission_classes = [permissions.IsAuthenticated]
 
-class OrderAPIView(mixins.ListModelMixin,
-                      mixins.CreateModelMixin,
-                      mixins.DestroyModelMixin,
-                      mixins.UpdateModelMixin,
-                      generics.GenericAPIView):
 
+class OrderAPIView(mixins.ListModelMixin,
+                   mixins.CreateModelMixin,
+                   mixins.DestroyModelMixin,
+                   mixins.UpdateModelMixin,
+                   generics.GenericAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
