@@ -26,7 +26,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        fields = ['product_id', 'price']
+        fields = ['product_id', 'price', 'quantity']
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -49,4 +49,4 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['pk', 'full_name', 'phone', 'from_address', 'to_address', 'landmark', 'items']
+        fields = ['pk', 'full_name', 'phone', 'from_address', 'to_address', 'landmark', 'items', 'deliver']

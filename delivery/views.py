@@ -25,7 +25,7 @@ class UserViewSet(viewsets.ModelViewSet, mixins.CreateModelMixin, mixins.UpdateM
         first_name = self.request.query_params.get('first_name')
         last_name = self.request.query_params.get('last_name')
         if phone is not None:
-            queryset = queryset.filter(phone=phone)
+            queryset = queryset.filter(phone__contains=phone)
         if first_name is not None:
             queryset = queryset.filter(first_name=first_name)
         if last_name is not None:
