@@ -31,6 +31,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, required=True)
+    deliver_user = CustomUserSerializer(source="deliver", required=False, read_only=True)
 
     def create(self, validated_data):
         items = validated_data.pop('items', [])
@@ -42,11 +43,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         items_data = validated_data.pop('items', {})
+        print(items_data)
         items_serializer = OrderItemSerializer(instance.items, data=items_data)
         if items_serializer.is_valid():
             items_serializer.save()
-        return instance
+        return super().update(instance, validated_data)
 
     class Meta:
         model = Order
-        fields = ['pk', 'full_name', 'phone', 'from_address', 'to_address', 'landmark', 'items', 'deliver']
+        fields = ['pk', 'full_name', 'phone', 'from_address', 'to_address', 'landmark', 'items', 'deliver', 'deliver_user']
